@@ -1,6 +1,6 @@
 ---
 title: "Lab 03: Descriptive Statistics and Visualization "
-author: Maghfira Ramadhani
+author: Claire Lanaghan
 date: "2025-09-24"
 date-format: "MMM DD, YYYY"
 execute:
@@ -45,7 +45,7 @@ By the end of the lab, you will:
 ```{r, eval=T}
 #| label: package manager
 # load and install package
-knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(
   tidyverse,
@@ -53,7 +53,9 @@ pacman::p_load(
   kableExtra,
   RColorBrewer,
   curl,
-  usethis)
+  usethis,
+  gt,
+  probstats4econ)
 ```
 
 # Exercise 1: Creating your Own GitHub Repository
@@ -394,15 +396,46 @@ There is website that host a collection of beautiful charts you might want to vi
 
 *Visualization replication 1* \AddToHookNext{env/Highlighting/begin}{\small}
 
-```{r, echo=T, eval=T}
-#| label: r graph gallery replication 1
+```{r}
+install.packages("gt")
+```
 
+```{r, echo=T, eval=T}
+library(gt)
+library(dplyr)
+
+# Create a simple data frame
+data = cps
+
+# Alternatively you can do (same output):
+#gt(data)
+
+# Use the gt function
+cps %>%
+  slice_head(n = 5) %>%
+  gt()
+
+```
+
+```         
+```
+
+```{r}
+install.packages("probstats4econ")
 ```
 
 *Visualization replication 2* \AddToHookNext{env/Highlighting/begin}{\small}
 
 ```{r, echo=T, eval=T}
-#| label: r graph gallery replication 2
+#| label: auctions
+#| data("babynames", package = "probstats4econ")
+# Create data
+data1 <- babynames  %>%
+  slice_head(n = 10
+# plot
+ggplot(data1, aes(x=name, y=count)) +
+  geom_segment( aes(x=name, xend=name, y=0, yend=count)) +
+  geom_point( size=5, color="red", fill=alpha("orange", 0.3), alpha=0.7, shape=21, stroke=2)
 
 ```
 
@@ -439,7 +472,7 @@ To submit your assignment:
 # Grading
 
 | Component                                                          | Points |
-|:-------------------------------------------------------------------|:-------|
+|:---------------------------------------------------|:-------------------|
 | Exercise 1                                                         | 5      |
 | Exercise 2                                                         | 5      |
 | Exercise 3                                                         | 80     |
